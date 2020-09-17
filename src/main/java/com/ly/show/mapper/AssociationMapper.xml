@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ly.show.mapper.AssociationMapper">
+  <resultMap id="BaseResultMap" type="com.ly.show.model.Association">
+    <id column="Id" jdbcType="INTEGER" property="id" />
+    <result column="Index" jdbcType="INTEGER" property="index" />
+    <result column="GutMicrobiota" jdbcType="VARCHAR" property="gutmicrobiota" />
+    <result column="GutMicrobiataNCBIID" jdbcType="VARCHAR" property="gutmicrobiatancbiid" />
+    <result column="GutMicrobiotaID" jdbcType="VARCHAR" property="gutmicrobiotaid" />
+    <result column="Classification" jdbcType="VARCHAR" property="classification" />
+    <result column="Strain" jdbcType="VARCHAR" property="strain" />
+    <result column="Sampletype" jdbcType="VARCHAR" property="sampletype" />
+    <result column="Substrate" jdbcType="VARCHAR" property="substrate" />
+    <result column="SubstratePubChemCID" jdbcType="VARCHAR" property="substratepubchemcid" />
+    <result column="Metabolite" jdbcType="VARCHAR" property="metabolite" />
+    <result column="MetabolitePubChemCID" jdbcType="VARCHAR" property="metabolitepubchemcid" />
+    <result column="Gene" jdbcType="VARCHAR" property="gene" />
+    <result column="GeneID" jdbcType="VARCHAR" property="geneid" />
+    <result column="Alteration" jdbcType="VARCHAR" property="alteration" />
+    <result column="Description" jdbcType="VARCHAR" property="description" />
+    <result column="human/mouse" jdbcType="VARCHAR" property="humanMouse" />
+    <result column="Experiment" jdbcType="VARCHAR" property="experiment" />
+    <result column="Platform" jdbcType="VARCHAR" property="platform" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    Id, `Index`, GutMicrobiota, GutMicrobiataNCBIID, GutMicrobiotaID, Classification, Strain,
+    Sampletype, Substrate, SubstratePubChemCID, Metabolite, MetabolitePubChemCID, Gene, 
+    GeneID, Alteration, Description, human/mouse, Experiment, Platform
+  </sql>
+  <select id="selectByExample" parameterType="com.ly.show.model.AssociationExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from Association
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from Association
+    where Id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from Association
+    where Id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ly.show.model.AssociationExample">
+    delete from Association
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ly.show.model.Association">
+    insert into Association (Id, `Index`, GutMicrobiota,
+      GutMicrobiataNCBIID, GutMicrobiotaID, Classification, 
+      Strain, Sampletype, Substrate, 
+      SubstratePubChemCID, Metabolite, MetabolitePubChemCID, 
+      Gene, GeneID, Alteration, 
+      Description, human/mouse, Experiment, 
+      Platform)
+    values (#{id,jdbcType=INTEGER}, #{index,jdbcType=INTEGER}, #{gutmicrobiota,jdbcType=VARCHAR}, 
+      #{gutmicrobiatancbiid,jdbcType=VARCHAR}, #{gutmicrobiotaid,jdbcType=VARCHAR}, #{classification,jdbcType=VARCHAR}, 
+      #{strain,jdbcType=VARCHAR}, #{sampletype,jdbcType=VARCHAR}, #{substrate,jdbcType=VARCHAR}, 
+      #{substratepubchemcid,jdbcType=VARCHAR}, #{metabolite,jdbcType=VARCHAR}, #{metabolitepubchemcid,jdbcType=VARCHAR}, 
+      #{gene,jdbcType=VARCHAR}, #{geneid,jdbcType=VARCHAR}, #{alteration,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR}, #{humanMouse,jdbcType=VARCHAR}, #{experiment,jdbcType=VARCHAR}, 
+      #{platform,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ly.show.model.Association">
+    insert into Association
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        Id,
+      </if>
+      <if test="index != null">
+        `Index`,
+      </if>
+      <if test="gutmicrobiota != null">
+        GutMicrobiota,
+      </if>
+      <if test="gutmicrobiatancbiid != null">
+        GutMicrobiataNCBIID,
+      </if>
+      <if test="gutmicrobiotaid != null">
+        GutMicrobiotaID,
+      </if>
+      <if test="classification != null">
+        Classification,
+      </if>
+      <if test="strain != null">
+        Strain,
+      </if>
+      <if test="sampletype != null">
+        Sampletype,
+      </if>
+      <if test="substrate != null">
+        Substrate,
+      </if>
+      <if test="substratepubchemcid != null">
+        SubstratePubChemCID,
+      </if>
+      <if test="metabolite != null">
+        Metabolite,
+      </if>
+      <if test="metabolitepubchemcid != null">
+        MetabolitePubChemCID,
+      </if>
+      <if test="gene != null">
+        Gene,
+      </if>
+      <if test="geneid != null">
+        GeneID,
+      </if>
+      <if test="alteration != null">
+        Alteration,
+      </if>
+      <if test="description != null">
+        Description,
+      </if>
+      <if test="humanMouse != null">
+        human/mouse,
+      </if>
+      <if test="experiment != null">
+        Experiment,
+      </if>
+      <if test="platform != null">
+        Platform,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="index != null">
+        #{index,jdbcType=INTEGER},
+      </if>
+      <if test="gutmicrobiota != null">
+        #{gutmicrobiota,jdbcType=VARCHAR},
+      </if>
+      <if test="gutmicrobiatancbiid != null">
+        #{gutmicrobiatancbiid,jdbcType=VARCHAR},
+      </if>
+      <if test="gutmicrobiotaid != null">
+        #{gutmicrobiotaid,jdbcType=VARCHAR},
+      </if>
+      <if test="classification != null">
+        #{classification,jdbcType=VARCHAR},
+      </if>
+      <if test="strain != null">
+        #{strain,jdbcType=VARCHAR},
+      </if>
+      <if test="sampletype != null">
+        #{sampletype,jdbcType=VARCHAR},
+      </if>
+      <if test="substrate != null">
+        #{substrate,jdbcType=VARCHAR},
+      </if>
+      <if test="substratepubchemcid != null">
+        #{substratepubchemcid,jdbcType=VARCHAR},
+      </if>
+      <if test="metabolite != null">
+        #{metabolite,jdbcType=VARCHAR},
+      </if>
+      <if test="metabolitepubchemcid != null">
+        #{metabolitepubchemcid,jdbcType=VARCHAR},
+      </if>
+      <if test="gene != null">
+        #{gene,jdbcType=VARCHAR},
+      </if>
+      <if test="geneid != null">
+        #{geneid,jdbcType=VARCHAR},
+      </if>
+      <if test="alteration != null">
+        #{alteration,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="humanMouse != null">
+        #{humanMouse,jdbcType=VARCHAR},
+      </if>
+      <if test="experiment != null">
+        #{experiment,jdbcType=VARCHAR},
+      </if>
+      <if test="platform != null">
+        #{platform,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ly.show.model.AssociationExample" resultType="java.lang.Long">
+    select count(*) from Association
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update Association
+    <set>
+      <if test="record.id != null">
+        Id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.index != null">
+        Index = #{record.index,jdbcType=INTEGER},
+      </if>
+      <if test="record.gutmicrobiota != null">
+        GutMicrobiota = #{record.gutmicrobiota,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gutmicrobiatancbiid != null">
+        GutMicrobiataNCBIID = #{record.gutmicrobiatancbiid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gutmicrobiotaid != null">
+        GutMicrobiotaID = #{record.gutmicrobiotaid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.classification != null">
+        Classification = #{record.classification,jdbcType=VARCHAR},
+      </if>
+      <if test="record.strain != null">
+        Strain = #{record.strain,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sampletype != null">
+        Sampletype = #{record.sampletype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.substrate != null">
+        Substrate = #{record.substrate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.substratepubchemcid != null">
+        SubstratePubChemCID = #{record.substratepubchemcid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.metabolite != null">
+        Metabolite = #{record.metabolite,jdbcType=VARCHAR},
+      </if>
+      <if test="record.metabolitepubchemcid != null">
+        MetabolitePubChemCID = #{record.metabolitepubchemcid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gene != null">
+        Gene = #{record.gene,jdbcType=VARCHAR},
+      </if>
+      <if test="record.geneid != null">
+        GeneID = #{record.geneid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.alteration != null">
+        Alteration = #{record.alteration,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null">
+        Description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.humanMouse != null">
+        human/mouse = #{record.humanMouse,jdbcType=VARCHAR},
+      </if>
+      <if test="record.experiment != null">
+        Experiment = #{record.experiment,jdbcType=VARCHAR},
+      </if>
+      <if test="record.platform != null">
+        Platform = #{record.platform,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update Association
+    set Id = #{record.id,jdbcType=INTEGER},
+      Index = #{record.index,jdbcType=INTEGER},
+      GutMicrobiota = #{record.gutmicrobiota,jdbcType=VARCHAR},
+      GutMicrobiataNCBIID = #{record.gutmicrobiatancbiid,jdbcType=VARCHAR},
+      GutMicrobiotaID = #{record.gutmicrobiotaid,jdbcType=VARCHAR},
+      Classification = #{record.classification,jdbcType=VARCHAR},
+      Strain = #{record.strain,jdbcType=VARCHAR},
+      Sampletype = #{record.sampletype,jdbcType=VARCHAR},
+      Substrate = #{record.substrate,jdbcType=VARCHAR},
+      SubstratePubChemCID = #{record.substratepubchemcid,jdbcType=VARCHAR},
+      Metabolite = #{record.metabolite,jdbcType=VARCHAR},
+      MetabolitePubChemCID = #{record.metabolitepubchemcid,jdbcType=VARCHAR},
+      Gene = #{record.gene,jdbcType=VARCHAR},
+      GeneID = #{record.geneid,jdbcType=VARCHAR},
+      Alteration = #{record.alteration,jdbcType=VARCHAR},
+      Description = #{record.description,jdbcType=VARCHAR},
+      human/mouse = #{record.humanMouse,jdbcType=VARCHAR},
+      Experiment = #{record.experiment,jdbcType=VARCHAR},
+      Platform = #{record.platform,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ly.show.model.Association">
+    update Association
+    <set>
+      <if test="index != null">
+        Index = #{index,jdbcType=INTEGER},
+      </if>
+      <if test="gutmicrobiota != null">
+        GutMicrobiota = #{gutmicrobiota,jdbcType=VARCHAR},
+      </if>
+      <if test="gutmicrobiatancbiid != null">
+        GutMicrobiataNCBIID = #{gutmicrobiatancbiid,jdbcType=VARCHAR},
+      </if>
+      <if test="gutmicrobiotaid != null">
+        GutMicrobiotaID = #{gutmicrobiotaid,jdbcType=VARCHAR},
+      </if>
+      <if test="classification != null">
+        Classification = #{classification,jdbcType=VARCHAR},
+      </if>
+      <if test="strain != null">
+        Strain = #{strain,jdbcType=VARCHAR},
+      </if>
+      <if test="sampletype != null">
+        Sampletype = #{sampletype,jdbcType=VARCHAR},
+      </if>
+      <if test="substrate != null">
+        Substrate = #{substrate,jdbcType=VARCHAR},
+      </if>
+      <if test="substratepubchemcid != null">
+        SubstratePubChemCID = #{substratepubchemcid,jdbcType=VARCHAR},
+      </if>
+      <if test="metabolite != null">
+        Metabolite = #{metabolite,jdbcType=VARCHAR},
+      </if>
+      <if test="metabolitepubchemcid != null">
+        MetabolitePubChemCID = #{metabolitepubchemcid,jdbcType=VARCHAR},
+      </if>
+      <if test="gene != null">
+        Gene = #{gene,jdbcType=VARCHAR},
+      </if>
+      <if test="geneid != null">
+        GeneID = #{geneid,jdbcType=VARCHAR},
+      </if>
+      <if test="alteration != null">
+        Alteration = #{alteration,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        Description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="humanMouse != null">
+        human/mouse = #{humanMouse,jdbcType=VARCHAR},
+      </if>
+      <if test="experiment != null">
+        Experiment = #{experiment,jdbcType=VARCHAR},
+      </if>
+      <if test="platform != null">
+        Platform = #{platform,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ly.show.model.Association">
+    update Association
+    set Index = #{index,jdbcType=INTEGER},
+      GutMicrobiota = #{gutmicrobiota,jdbcType=VARCHAR},
+      GutMicrobiataNCBIID = #{gutmicrobiatancbiid,jdbcType=VARCHAR},
+      GutMicrobiotaID = #{gutmicrobiotaid,jdbcType=VARCHAR},
+      Classification = #{classification,jdbcType=VARCHAR},
+      Strain = #{strain,jdbcType=VARCHAR},
+      Sampletype = #{sampletype,jdbcType=VARCHAR},
+      Substrate = #{substrate,jdbcType=VARCHAR},
+      SubstratePubChemCID = #{substratepubchemcid,jdbcType=VARCHAR},
+      Metabolite = #{metabolite,jdbcType=VARCHAR},
+      MetabolitePubChemCID = #{metabolitepubchemcid,jdbcType=VARCHAR},
+      Gene = #{gene,jdbcType=VARCHAR},
+      GeneID = #{geneid,jdbcType=VARCHAR},
+      Alteration = #{alteration,jdbcType=VARCHAR},
+      Description = #{description,jdbcType=VARCHAR},
+      human/mouse = #{humanMouse,jdbcType=VARCHAR},
+      Experiment = #{experiment,jdbcType=VARCHAR},
+      Platform = #{platform,jdbcType=VARCHAR}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
